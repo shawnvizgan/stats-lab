@@ -1,0 +1,19 @@
+---
+title: "stats 2"
+author: "Shawn Vizgan"
+date: "9/15/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+question 1 
+```{r}
+scores <- c(2,3,4,5,6,7,8,9,10,46)
+
+sum(scores)
+```
