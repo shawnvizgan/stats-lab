@@ -39,17 +39,11 @@ question 2
 ```{r}
 y <- c(2,4,6,8,10,13,16,19,22,26)
 
-numbers_to_test <- min(y):max(y)
 
-sum_y <- sum(numbers_to_test)
+sum(y)
+mean(y)/length(y)
 
-sum_ysquare <-c()
-  for(i in numbers_to_test){
-    sum((numbers_to_test)^2)
-  }
-
-sum_ysquare-((sum_y)^2)/(length(y)-1)
-
+sum((y-mean(y))^2)/(length(y)-1)
 
 var(y)
 
@@ -66,7 +60,7 @@ var(y)
 
 question 3
 ```{r}
-library(dbplyr)
+library(dplyr)
 
 library(ggplot2)
 
@@ -79,14 +73,14 @@ school_data <- data.frame(class, class_means)
 str(school_data)
 
 
+school_data$class <- factor(school_data$class, 
+                            levels = c("morning","afternoon","nighttime"))
 
-group_means <- school_data 
-             
-                
-                
-             
 
-ggplot(group_means, aes(x = class, y = class_means))+
+
+plot(school_data)             
+
+ggplot(school_data, aes(x = class, y = class_means))+
   geom_bar(stat="identity")
 
 
@@ -99,15 +93,18 @@ ggplot(group_means, aes(x = class, y = class_means))+
 
 question 4
 ```{r}
-library(dbplyr)
+library(dplyr)
 
 library(ggplot2)
 
 
-class <- c('morning','afternoon','nighttime')
-class1_means <- c(75,78,80)
-class2_means <- c(88,76,63)
-school_data <- data.frame(class, class1_means, class2_means)
+time_of_day <- c("morning","afternoon","nighttime")
+ scores <- c(75,78,80,88,76,63)
+instructor <- factor(c(1,1,1,2,2,2))
+school_data <- data.frame(time_of_day, scores, instructor)
+
+school_data$time_of_day <- factor(school_data$time_of_day, 
+                            levels = c("morning","afternoon","nighttime"))
 
 group_means <- school_data 
              
@@ -115,8 +112,8 @@ knitr::kable(group_means)
                 
              
 
-ggplot(group_means, aes(x = class, y = class1_means, z = class2_means))+
-  geom_bar(stat="identity")
+ggplot(group_means, aes(x = time_of_day, y = scores , group = instructor, fill = instructor))+
+  geom_bar(stat="identity" , position = "dodge" )
 
 
 ```
