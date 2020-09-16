@@ -29,10 +29,22 @@ sum_deviations <-c()
 }
 
 sum_deviations
+
+plot(abs(sum_deviations))
+
+which(sum_deviations == 0)
 ```
 
 question 2
 ```{r}
-scores <- c(2,5,7,8,9,11,14,16,18,20,22,3,27)
+x <- c(2,4,6,8,10,13,16,19,22,26)
 
-med(scores)
+(length(x)/2)+1
+
+
+length(x)
+
+
+median(x)
+
+```
