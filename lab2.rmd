@@ -45,7 +45,7 @@ sum_y <- sum(numbers_to_test)
 
 sum_ysquare <-c()
   for(i in numbers_to_test){
-    sum(numbers_to_test^2)
+    sum((numbers_to_test)^2)
   }
 
 sum_ysquare-((sum_y)^2)/(length(y)-1)
@@ -65,4 +65,56 @@ var(y)
 ```
 
 question 3
+```{r}
+library(dbplyr)
 
+library(ggplot2)
+
+
+class <- c('morning','afternoon','nighttime')
+class_means <- c(85,90,93)
+
+school_data <- data.frame(class, class_means)
+
+str(school_data)
+
+
+
+group_means <- school_data 
+             
+                
+                
+             
+
+ggplot(group_means, aes(x = class, y = class_means))+
+  geom_bar(stat="identity")
+
+
+```  
+
+
+
+
+
+
+question 4
+```{r}
+library(dbplyr)
+
+library(ggplot2)
+
+
+class <- c('morning','afternoon','nighttime')
+class1_means <- c(75,78,80)
+class2_means <- c(88,76,63)
+school_data <- data.frame(class, class1_means, class2_means)
+
+group_means <- school_data 
+             
+                
+                
+             
+
+ggplot(group_means, aes(x = class, y = class_means))+
+  geom_bar(stat="identity")
+```
