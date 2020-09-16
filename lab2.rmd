@@ -111,10 +111,12 @@ school_data <- data.frame(class, class1_means, class2_means)
 
 group_means <- school_data 
              
-                
+knitr::kable(group_means)                
                 
              
 
-ggplot(group_means, aes(x = class, y = class_means))+
+ggplot(group_means, aes(x = class, y = class1_means, z = class2_means))+
   geom_bar(stat="identity")
+
+
 ```
