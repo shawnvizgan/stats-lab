@@ -131,3 +131,9 @@ whr2018_data <- read.table("open_data/WHR2018.csv",
 
 
 
+whr2018_data %>%
+  filter( year >= 2010,
+          year <= 2015) %>%
+  group_by(year) %>%  
+  summarize()
+```
