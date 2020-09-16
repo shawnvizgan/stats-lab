@@ -37,14 +37,32 @@ which(sum_deviations == 0)
 
 question 2
 ```{r}
-x <- c(2,4,6,8,10,13,16,19,22,26)
+y <- c(2,4,6,8,10,13,16,19,22,26)
 
-(length(x)/2)+1
+numbers_to_test <- min(y):max(y)
+
+sum_y <- sum(numbers_to_test)
+
+sum_ysquare <-c()
+  for(i in numbers_to_test){
+    sum(numbers_to_test^2)
+  }
+
+sum_ysquare-((sum_y)^2)/(length(y)-1)
 
 
-length(x)
+var(y)
+
+             
+             
+             
+             
+             
+        
 
 
-median(x)
 
 ```
+
+question 3
+
