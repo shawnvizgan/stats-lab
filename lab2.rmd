@@ -135,5 +135,23 @@ whr2018_data %>%
   filter( year >= 2010,
           year <= 2015) %>%
   group_by(year) %>%  
-  summarize()
+  summarize(mean_hleab = mean(Healthy.life.expectancy.at.birth, na.rm = TRUE))
+           
 ```
+question 6
+```{r}
+whr2018_data <- read.table("open_data/WHR2018.csv",
+                             sep = ",",
+                             header = TRUE )
+
+
+
+whr2018_data %>%
+  filter( year >= 2010,
+          year <= 2015) %>%
+  group_by(year) %>%  
+  summarize(mean_hleab = mean(Healthy.life.expectancy.at.birth, na.rm = TRUE),
+            sd_hleab = sd(Healthy.life.expectancy.at.birth, na.rm = TRUE))
+```
+
+
