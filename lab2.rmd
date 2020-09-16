@@ -115,6 +115,10 @@ knitr::kable(group_means)
 ggplot(group_means, aes(x = time_of_day, y = scores , group = instructor, fill = instructor))+
   geom_bar(stat="identity" , position = "dodge" )
 
+ggplot(group_means, aes(x = time_of_day, y = scores , fill = instructor))+
+  geom_bar(stat="identity" , position = "dodge" ) + 
+  facet_wrap(~instructor)
+
 
 ```
 
