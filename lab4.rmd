@@ -45,3 +45,7 @@ two <- sample(1:6,10000, replace=TRUE)
 combined <- one+two
 table(combined)/1000
 ```
+
+
+
+
