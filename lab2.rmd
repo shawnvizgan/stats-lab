@@ -128,15 +128,19 @@ question 5
 whr2018_data <- read.table("open_data/WHR2018.csv",
                              sep = ",",
                              header = TRUE )
+library(ggplot2)
+library(dplyr)
 
-
-
-whr2018_data %>%
+group_means <- whr2018_data %>%
   filter( year >= 2010,
           year <= 2015) %>%
   group_by(year) %>%  
   summarize(mean_hleab = mean(Healthy.life.expectancy.at.birth, na.rm = TRUE))
-           
+
+
+ggplot(group_means, aes(x = year, y = mean_hleab))+
+  geom_bar(stat="identity")
+
 ```
 question 6
 ```{r}
@@ -144,14 +148,27 @@ whr2018_data <- read.table("open_data/WHR2018.csv",
                              sep = ",",
                              header = TRUE )
 
+library(ggplot2)
+library(dplyr)
 
 
-whr2018_data %>%
+
+group_means <- whr2018_data %>%
   filter( year >= 2010,
           year <= 2015) %>%
   group_by(year) %>%  
   summarize(mean_hleab = mean(Healthy.life.expectancy.at.birth, na.rm = TRUE),
             sd_hleab = sd(Healthy.life.expectancy.at.birth, na.rm = TRUE))
+ 
+ 
+ 
+ 
+ggplot(group_means, aes(x = year, y = mean_hleab))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin = mean_hleab - sd_hleab,
+                    ymax = mean_hleab + sd_hleab),
+                width = .25)
+
 ```
 
 
