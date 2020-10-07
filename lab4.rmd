@@ -45,6 +45,60 @@ two <- sample(1:6,10000, replace=TRUE)
 combined <- one+two
 table(combined)/1000
 ```
+question 3)
+```{r}
+
+step <- c(0)
+
+for(i in 1:10000){
+  coin_flip <- sample(c(1, -1), 1)
+  step[i+1] <- step[i]+coin_flip
+}
+
+plot(step[1:10000])
+
+
+
+
+
+
+
+
+
+```
+question 4)
+```{r}
+
+max(step[1:10000])
+
+
+```
+question 5) 
+```{r}
+
+logical_step <- sign(step)
+
+
+sequence <- c()
+counter <- 0
+for(i in 1:length(logical_step)){
+  sequence <- c(sequence,counter)
+  counter <- 0
+} else {
+  counter <- counter+logical_step[i]
+}
+
+
+max(sequence)
+min(sequence)
+
+
+```
+
+
+
+
+
 
 
 
