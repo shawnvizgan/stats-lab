@@ -90,10 +90,24 @@ questions 3. Demonstrate that the sample mean across a range of n, is an unbiase
 
 ```{r}
 a <- c(2,5,10,50,100)
-my_data <- data.frame(sample_data = rnorm(10000, 10, 5))
-                    
-sample(sample_data)
+# sample_data = rnorm(2, 10, 5)
+# 
+# 
+# rnorm(2, 10, 5)
+# mean(rnorm(2, 10, 5))
+# replicate(10000, mean(rnorm(2, 10, 5)))
+# 
+# mean(replicate(10000, mean(rnorm(2, 10, 5))))
 
+
+for(i in a){
+  
+ print(mean(replicate(10000, mean(rnorm(i, 10, 5))))) 
+  
+  
+}
+
+  
 
 
 
