@@ -33,7 +33,7 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 1) Create five samples of 25 observations from a normal distribution with mean 200, and )standard deviation 100. Compute the mean of each sample, and plot the means in a graph using ggplot2. (1 point)
 ```{R}
 library(dplyr)  
-a <- rnorm(25*5, 200, 100)
+
 
 my_data <- data.frame(observations = rnorm(25*5, 200, 100),
                       the_samples = rep(1:5, each=25))
@@ -47,27 +47,55 @@ library(ggplot2)
 ggplot(my_means, aes(x = the_samples, y = the_means))+
   geom_point()
 
-my_matrix <- matrix(0, ncol =25, nrow = 5)
 
-for(i in 1:5){
-  rnorm(25, mean = 200, sd = 100)
-}
 
 
 
 ```
 2) Additionally calculate the standard deviation of each sample from above. Use the standard deviations for error bars, and produce another graph with the means along with error bars using ggplot2. (1 point)
 ```{r}
- 
-summarise(standard_deviation = std(observations))
+  
 
-library(ggplot2)
- 
-ggplot(my_means, aes(x = the_samples, y = standard_deviation))+
-  geom_point()
+#create simulated data
+my_data <- data.frame(observations = rnorm(25*5, 200, 100),
+                      the_samples = rep(1:5, each=25))
 
-my_matrix <- matrix(0, ncol =25, nrow = 5)
 
-for(i in 1:5){
-  rnorm(25, mean = 200, sd = 100)
-}
+
+#analyzye the data, get descriptive statistics
+my_means <- my_data %>%
+  group_by(the_samples) %>%
+  summarise(the_means = mean(observations),
+            standard_deviation = sd(observations)
+            )
+    
+
+#plot 
+ggplot(my_means, aes(x = the_samples, y = the_means))+
+  geom_point()+
+geom_bar(stat="identity")+
+geom_errorbar(aes(ymin = the_means - standard_deviation,
+                    ymax = the_means + standard_deviation),
+                width = .10)
+
+
+
+```
+
+questions 3. Demonstrate that the sample mean across a range of n, is an unbiased estimator of the population mean using a monte-carlo simulation. (2 points).
+-The population is a normal distribution with mean = 10, standard deviation = 5.
+-Test a variety of n (sample size), including n = 2, 5, 10, 50, and 100
+-For each sample size n, your task is to draw 10,000 samples of that size, then for each sample, calculate the sample mean. If the mean is unbiased, then we expect that “on average” the sample means will be the same as the population mean. To determine if this is true, compute the mean of the sample means that you produce to see if it is close to the population mean.
+-Show the mean of the sample means for each sample size.
+
+```{r}
+a <- c(2,5,10,50,100)
+my_data <- data.frame(sample_data = rnorm(10000, 10, 5))
+                    
+sample(sample_data)
+
+
+
+
+
+```
