@@ -1,0 +1,68 @@
+---
+title: "lab7.rmd"
+author: "Shawn Vizgan"
+date: "10/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+question 1)
+```{r}
+?binom.test
+binom.test(x = 30,
+           n = 50,
+           p = .5,
+           alternative='greater')
+
+
+#the pvalue is .1, and is higher than p < .05, meaning that it is 10% possible to get this score by chance and with random guessing and is not considered to be especially significant.
+
+
+
+#100/100
+```
+
+
+question 2)
+```{r}
+
+binom.test(385,700,.5,alternative="greater")
+
+
+
+
+
+
+#100/100 but confirmed my thought using the video
+```
+
+question 3)
+```{r}
+# task_designs <- data.frame( number_of_heads = 0:5, true_or_false = 0:5, 
+#                           probability1 = dbinom(x=0:1,size=1,prob= .5),
+#                           cumulative1 = pbinom(0:1, size = 1, prob = .5),
+#                           rev_cumulative1 = pbinom(-1:0, 1, .5, lower.tail=FALSE),
+#                           probability2 = dbinom(x=0:1,size=1,prob= .25),
+#                           cumulative2 = pbinom(0:1, size = 1, prob = .25),
+#                           rev_cumulative2 = pbinom(-1:0, 1, .25, lower.tail=FALSE))
+# knitr::kable(task_designs)
+
+rbinom (n= rep(1,10), size = 1, prob = c(.5,.5,.5,.5,.5,.25,.25,.25,.25,.25) )
+
+simulated_test <- replicate(10000, rbinom (n= rep(1,10), size = 1, prob = c(.5,.5,.5,.5,.5,.25,.25,.25,.25,.25) ))
+
+simulated_scores <- colSums(simulated_test)/10
+
+library(ggplot2)
+
+qplot(simulated_scores)+
+  geom_histogram()
+  
+
+length(simulated_scores[simulated_scores > .75]) /10000
+
+
+
+#0/100 i was confused as hell and my own attempt was not effective
