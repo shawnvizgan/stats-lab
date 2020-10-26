@@ -36,45 +36,58 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
  
  
  
+ library(ggplot2)
+ 
  group_1 <- rnorm(50,65,10)
  group_2 <- rnorm(50,65,10)
-
-
- mean(group_1)
-
- mean(group_2)
  
- mean(group_1)-mean(group_2)
-
-
- all_scores <- c(group_1,group_2)
- resample <- sample(all_scores)
- new_1_mean <- mean(resample[1:50])
- new_2_mean <- mean(resample[51:100])
- new_difference <- new_1_mean-new_2_mean
- new_difference
+ randomization_test <- function(group_1,group_2,iterations=10000){
+    
+    mean(group_1)
+    mean(group_2)
+    mean(group_1)-mean(group_2)
+   
+    all_scores <- c(group_1,group_2)
+    resample <- sample(all_scores)
+    new_1_mean <- mean(resample[1:50])
+    new_2_mean <- mean(resample[51:100])
+    new_difference <- new_1_mean-new_2_mean
+    new_difference
+    
+    mean_differences <- c()
+    for(i in 1:iterations){
+      resample <- sample(all_scores)
+      new_1_mean <- mean(resample[1:50])
+      new_2_mean <- mean(resample[51:100])
+      mean_differences[i] <- new_1_mean-new_2_mean
+    }
+   
+    the_plot <- qplot(mean_differences)+
+      geom_histogram(color="blue")+
+      geom_vline(xintercept=mean(group_1) - mean(group_2), color ="purple")+
+      theme_classic()
+   
+    p_value <- length(mean_differences[mean_differences >= 4]) / length(mean_differences)
+    
+    my_output <- list(group_1_mean = mean(group_1),
+                      group_2_mean = mean(group_2),
+                      mean_difference = mean(group_1)-mean(group_2),
+                      all_mean_differences = mean_differences,
+                      plot = the_plot,
+                      p_value = p_value
+                      )
+    
+    return(my_output)
  
- mean_differences <- c()
- for(i in 1:10000){
-   resample <- sample(all_scores)
-   new_1_mean <- mean(resample[1:50])
-   new_2_mean <- mean(resample[51:100])
-   mean_differences[i] <- new_1_mean-new_2_mean
  }
+ 
+ my_results <- randomization_test(group_1 = rnorm(50,65,10),
+                    group_2 = rnorm(50,65,10),
+                    iterations=100)
+my_results$group_1_mean
+my_results$plot
 
-
- qplot(mean_differences)+
-   geom_histogram(color="blue")+
-   geom_vline(xintercept=mean(group_1) - mean(group_2), color ="purple")+
-   theme_classic()
-
-
- length(mean_differences[mean_differences >= 4]) / length(mean_differences)
 
 ```
 
 
-```{r}
-sample(1:5)
-
-```
