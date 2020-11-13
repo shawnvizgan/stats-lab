@@ -23,18 +23,24 @@ Advanced: Have an option so that the function will convert the raw scores to zsc
 using user provided mean and standard deviation
 using the calculated mean and standard deviation from the raw scores
 ```{r}
-sample_means <- replicate(10000, mean(rnorm(10,25,5)))
+sample_means <- rnorm(1000,25,5)
 
 specialsample <- sample((sample_means), 10 , replace = FALSE)
 
-standard_error <- 5/(sqrt(10))
 
-z_test <- function(raw = specialsample, mu = sample_means, standard_error){
-  zscores <- (raw-mu)/sd
+z_test <- function(raw, mu, standard_dev){
+  zscores <- (raw-mu)/standard_dev
   return(zscores)
 }
 
-z_test(specialsample)
+z_test(raw = specialsample, mu = mean(sample_means), standard_dev = sd(sample_means))
+
+##z_score <- function(x){
+  ##(x-mean(x))/sd(x)
+##}
+
+##z_score(c(1,2,3,4,5,6,7,7))
+
 ```
 
 Base R does not have a function for a z-test. Write a function to accomplish a one-sample z-test. Remember, a one-sample z test is used to compare the probability of obtaining the sample mean (or larger or smaller) if it came from a known normal distribution. (2 points).
