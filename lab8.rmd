@@ -47,9 +47,21 @@ Base R does not have a function for a z-test. Write a function to accomplish a o
 Use your z-test function to conduct a test of the following. A sample of 25 scores is taken. The mean of the sample is 50. The sample is assumed to have been taken from a normal distribution with mean 40 and standard deviation 7. Report a one-tailed z-test, examining the probability of obtaining a sample of greater than 50 in this situation. Report the results, and give a brief sentence explaining the result and the inference you make (2 points).
 ```{r}
 
+z.test <- function(sample_mean,sample_size,mu,sigma){
+  smpl_dist_mean <- mu
+  smpl_dist_sd <- sigma/sqrt(sample_size)
+  
+  p_value <- pnorm(sample_mean,smpl_dist_mean,smpl_dist_sd, lower.tail = FALSE)
+  return(p_value)
+  
+}
 
+z.test(sample_mean = 50,
+       sample_size = 25, 
+       mu = 40,
+       sigma = 7)
 
-
+## p < .05, it is a significant result to get a value of 50 from a distribution with a population mean of 40, there would be a higher likelihood that 50 might more likely come from an alternative distribution than come from this distribution by chance.
 
 
 ```
