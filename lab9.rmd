@@ -1,0 +1,65 @@
+---
+title: "lab9.rmd"
+author: "Shawn Vizgan"
+date: "12/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+
+library(dplyr)
+e1_data <- the_data %>%
+  filter(ExperimentNumber == "1")
+# conduct binomial test
+sum_C <- sum(e1_data$Infant.Chose.C)
+total_C <- length(e1_data$Infant.Chose.C)
+(binomial_p <- pbinom(q = total_C - sum_C,
+                      size = total_C, 
+                      prob = .5, 
+                      lower.tail = TRUE)*2)
+# chi-square for gender
+library(tidyr)
+gender_choice_table <- e1_data %>%
+  group_by(Gender, Infant.Chose.C) %>%
+  summarize(counts = n()) %>%
+  pivot_wider(names_from = c(Gender),
+              values_from = counts)
+gender_choice_table <- gender_choice_table[,2:3]
+(gender_Xsq <- chisq.test(gender_choice_table))  
+uncorrected_Xsq <- sum((gender_Xsq$observed-gender_Xsq$expected)^2/gender_Xsq$expected)
+gender_Xsq_unc <- pchisq(uncorrected_Xsq,1,lower.tail = FALSE)
+# chi-square for age
+age_table <- e1_data %>%
+  group_by(AgeMonths, Infant.Chose.C) %>%
+  summarize(counts = n()) %>%
+  pivot_wider(names_from = c(AgeMonths),
+              values_from = counts)
+age_table[is.na(age_table)] <- 0
+age_table <- as.matrix(age_table[,2:21])
+(age_xs <- chisq.test(age_table))
+
+```
