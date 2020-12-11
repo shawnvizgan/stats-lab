@@ -10,12 +10,12 @@ output: html_document
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
+Analysis part 1
 ```{r setup, include=FALSE}
 
 library(data.table)
-#all_data <- fread(https://raw.githubusercontent.com/CrumpLab/statisticsLab/master/data/stroop_stand.csv)
-all_data <- fread("/stroop_stand.csv")
+all_data <- fread("https://raw.githubusercontent.com/CrumpLab/statisticsLab/master/data/stroop_stand.csv")
+#all_data <- fread("stroop_stand.csv")
 
 
 
@@ -23,9 +23,9 @@ library(papaja)
 library(dplyr)
 library(ggplot2)
 
-all_data <- read.csv("open_data/stroop_stand.csv")
+#all_data <- read.csv("open_data/stroop_stand.csv")
 
-stand_stroop <- t.test
+
 
 (stand_stroop <- t.test(all_data$incongruent_stand,
        all_data$congruent_stand,
@@ -40,7 +40,7 @@ stand_stroop <- t.test
 
 
 ```
-
+analysis part 2
 ```{r}
 stand_stroop_scores <- all_data$incongruent_stand-all_data$congruent_stand
 sit_stroop_scores <- all_data$incongruent_sit-all_data$congruent_sit
@@ -57,7 +57,7 @@ stroop_differences <- sit_stroop_scores - stand_stroop_scores
 
 ```
 
-
+graph of the means
 ```{r}
 library(tidyr)
 # convert to long
@@ -93,7 +93,7 @@ ggplot(overall_means, aes(x=Posture,
 
 ```
 
-
+power curve analysis
 ```{r}
 effect_sizes <- seq(0,1.5,.1)
 prop_significant <-c()
