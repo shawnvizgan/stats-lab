@@ -93,7 +93,7 @@ Another issue is that For 21 infants, there is somehow 19 degrees of freedom, wh
 we see that they messed up first in using a chi square table, as the cbi square table can not give any new answers, since no matter what happens the babies can make only one of two choices, which is in line with reality. A different sort of statistical test or measure is needed, maybe a binomial test, to actually test whether the results were significant
 
 
-As shown below, there is actually a super low probability that it could be within a normal likelihood for 16 infants out of 21 to choose one shape over the other (as simple as this test is). There may be some sort of unique interaction when 16 children chose one toy over the other, just the chi square is not how you calculate it.
+As shown below, there is actually a super low probability (2-3%) that it could be within a normal likelihood for 16 infants out of 21 to choose one shape over the other (as simple as this test is). There may be some sort of unique interaction when 16 children chose one toy over the other, just the chi square is not how you calculate it.
 
 
 ```{r}
@@ -101,7 +101,7 @@ As shown below, there is actually a super low probability that it could be withi
 binom.test(x = 16,
            n = 21,
            p = .5,
-           alternative='greater')
+        )
 
 
 ```
