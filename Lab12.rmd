@@ -1,0 +1,66 @@
+---
+title: "lab12"
+author: "Shawn Vizgan"
+date: "12/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+Y= c(10,9,8,7,6,5,4,3,2,1,2,3,4,5,6,7,8,9,10),
+X= c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+
+Should you do a linear regression on this data? Explain.
+
+To put it most simply, why in the hell would you do a check for linear regression for data that is not a line? Doing the regression for fun/masochism/wasting my own time, you can see that a correlation of 0 get's picked up. Assumption of a straight line and checking for differences from a straight line and that variation simply will not work. However, it is funny to look at 
+
+```{r}
+
+
+some_data <- data.frame(Y_dv= c(10,9,8,7,6,5,4,3,2,1,2,3,4,5,6,7,8,9,10),
+                        X_iv= c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19))
+
+lm(Y_dv ~ X_iv, data=some_data)
+
+
+save_model <- lm(Y_dv ~ X_iv, data=some_data)
+summary(save_model)$r.squared
+
+cor.test(some_data$Y_dv,some_data$X_iv)
+
+summary(save_model)$r.squared
+
+sqrt(summary(save_model)$r.squared)
+
+
+library(ggplot2)
+
+ggplot(some_data, aes(x=X_iv, y=Y_dv))+
+  geom_point()+
+  geom_smooth(method='lm', se=FALSE)
+```
